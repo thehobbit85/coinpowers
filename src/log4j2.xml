@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
   <Appenders>
-    <File name="vender" fileName="log/vender.log" append="true">
+    <File name="casimir" fileName="log/casimir.log" append="true">
       <PatternLayout pattern="%d{dd-MM-yyyy-HH:mm:ss}-%-5p-%t-%C.%M:%m%n"/>
     </File>
     <Console name="STDOUT" target="SYSTEM_OUT">
@@ -10,10 +10,10 @@
   </Appenders>
   <Loggers>
     <Logger name="org.apache.log4j.xml" level="all">
-      <AppenderRef ref="vender"/>
+      <AppenderRef ref="casimir"/>
     </Logger>
     <Root level="all">
-      <AppenderRef ref="vender"/>
+      <AppenderRef ref="casimir"/>
     </Root>
   </Loggers>
 </Configuration>
