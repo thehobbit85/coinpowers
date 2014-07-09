@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-<entry key="manualyReturnToBlock">0</entry>
 <entry key="numberOfMinConfirmation">1</entry>
-<entry key="lastBlockHandledHeight">308346</entry>
+<entry key="manualyReturnToBlock">0</entry>
+<entry key="lastBlockHandledHeight">308403</entry>
 <entry key="sleepTime">300000</entry>
 <entry key="returnableFee">6000</entry>
 </properties>
