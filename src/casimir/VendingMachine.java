@@ -9,7 +9,7 @@ import java.util.Vector;
 import org.apache.logging.log4j.*;
 import org.json.JSONObject;
 
-import casimir.cryptoAPI.BitcoinAPI;
+import casimir.cryptoAPI.BitcoindAPI;
 import casimir.cryptoAPI.MastercoinAPI;
 import casimir.dataBase.*;
 import casimir.dataBase.objects.*;
@@ -21,7 +21,7 @@ public class VendingMachine implements Runnable {
 	static final Logger logger = LogManager.getLogger(VendingMachine.class
 			.getName());
 	private boolean isActive = false;
-	private BitcoinAPI bitcoinAPI;
+	private BitcoindAPI bitcoinAPI;
 	private double currentBitcoinBlock;
 	private long sleepTime;
 	private Block lastBlockHandled;
@@ -69,7 +69,7 @@ public class VendingMachine implements Runnable {
 		logger.entry();
 		isActive = true;
 		try {
-			bitcoinAPI = new BitcoinAPI();
+			bitcoinAPI = new BitcoindAPI();
 			while (isActive) {
 
 				addTransactionsToDatabase(); // Adds transaction that got recived while sleeping

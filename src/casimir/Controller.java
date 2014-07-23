@@ -3,7 +3,7 @@ package casimir;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import casimir.cryptoAPI.BitcoinAPI;
+import casimir.cryptoAPI.BitcoindAPI;
 import casimir.cryptoAPI.MastercoinAPI;
 import casimir.dataBase.DatabaseAdapter;
 import casimir.dataBase.objects.Asset;
@@ -13,7 +13,7 @@ public class Controller {
 			.getName());
 
 	private boolean active = false;
-	private BitcoinAPI bitcoinAPI;
+	private BitcoindAPI bitcoinAPI;
 	private VendingMachine vend;
 
 	/**
@@ -24,7 +24,7 @@ public class Controller {
 		super();
 		logger.entry();
 		DatabaseAdapter.init();
-		this.bitcoinAPI = new BitcoinAPI();
+		this.bitcoinAPI = new BitcoindAPI();
 		logger.exit(this);
 	}
 

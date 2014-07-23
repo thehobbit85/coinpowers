@@ -112,9 +112,9 @@ import org.json.JSONObject;
 
 import casimir.JSON;
 
-public class BitcoinAPI {
+public class BitcoindAPI implements Bitcoin{
 
-	static final Logger logger = LogManager.getLogger(BitcoinAPI.class
+	static final Logger logger = LogManager.getLogger(BitcoindAPI.class
 			.getName());
 
 	private String rpcuser = "...";
@@ -126,7 +126,7 @@ public class BitcoinAPI {
 	/**
 	 * 
 	 */
-	public BitcoinAPI() {
+	public BitcoindAPI() {
 		logger.entry();
 		try {
 			Properties p = new Properties();
