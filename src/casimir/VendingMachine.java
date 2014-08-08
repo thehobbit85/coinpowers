@@ -10,7 +10,6 @@ import org.apache.logging.log4j.*;
 import org.json.JSONObject;
 
 import casimir.cryptoAPI.BitcoindAPI;
-import casimir.cryptoAPI.MastercoinAPI;
 import casimir.dataBase.*;
 import casimir.dataBase.objects.*;
 
@@ -155,6 +154,7 @@ public class VendingMachine implements Runnable {
 						send_amt,
 						this.bitcoinAPI.dumpPrivateKey(transaction_from));
 
+				/**
 				this.bitcoinAPI.openWallet();
 				String rawTrasactionHex = MastercoinAPI
 						.createTransaction(transactionFileName);
@@ -171,6 +171,9 @@ public class VendingMachine implements Runnable {
 				} else {
 					logger.exit("Problam with sending, will try again later");
 				}
+				**/
+				
+				
 			} else {
 				logger.exit("No currency ID");
 			}
@@ -242,10 +245,14 @@ public class VendingMachine implements Runnable {
 			f = new File("assets/" + property_name + ".json");
 			if (f.exists() && f.isDirectory() && asset != null
 					&& asset.getBlock_broadcasted_in() != -1) {
+				
+				/**
 				this.bitcoinAPI.openWallet();
 				String rawTrasactionHex = MastercoinAPI
 						.getAssetRawTransactionHex(property_name);
 				this.bitcoinAPI.closeWallet();
+				
+				
 				String returnAnswer = this.bitcoinAPI
 						.sendRawTransaction(rawTrasactionHex);
 				if (returnAnswer != "") {
@@ -257,6 +264,9 @@ public class VendingMachine implements Runnable {
 					logger.exit(returnAnswer);
 					
 				} 
+				**/
+				
+				
 			} else {
 				logger.exit("Already Broadcasted this Asset or JSON Corupted/Dons't exist");
 			}
