@@ -15,6 +15,7 @@ public class Main {
 		runProgram(args);
 	}
 	
+	
 	private static void runProgram(String[] args) {
 		logger.entry();
 		Controller controller = new Controller();

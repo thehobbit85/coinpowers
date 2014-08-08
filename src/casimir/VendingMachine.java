@@ -117,12 +117,7 @@ public class VendingMachine implements Runnable {
 
 			this.lastBlockHandled = processedBlock;
 			DatabaseAdapter.addBlock(this.lastBlockHandled);
-			// bitcoinAPI.
-			// String newTransaction =
-			// JsonUtil.createSignAndSendTransactionFile("transaction_from","transaction_to"
-			// , currency_id, send_amt, property_type, "from_private_key");
-			// MastercoinAPI.createTransaction(newTransaction);
-
+			
 		} catch (Exception e) {
 			logger.catching(e);
 			System.out.println("Unable to load properties" + e);
@@ -192,8 +187,8 @@ public class VendingMachine implements Runnable {
 		if (trackedAddresses != null) {
 			for (int i = 0; i < trackedAddresses.length; i++) {
 
-				Cheat.addTransactionsToDatabase(trackedAddresses[i],
-						this.returnableFee);
+				//PaymentProccesor.addTransactionsToDatabase(trackedAddresses[i],
+				//		this.returnableFee);
 
 			}
 		}

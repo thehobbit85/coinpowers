@@ -2,6 +2,11 @@ package casimir.dataBase;
 
 import java.sql.*;
 import java.util.Vector;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +19,18 @@ public class DatabaseAdapter {
 
 	static final Logger logger = LogManager.getLogger(DatabaseAdapter.class
 			.getName());
+
+	public static ResultSet main(String[] args) throws SQLException,
+			ClassNotFoundException {
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		Connection conn = DriverManager
+				.getConnection("jdbc:sqlserver://HOSP_SQL1.company.com;user=name;password=abcdefg;database=Test");
+		
+		Statement sta = conn.createStatement();
+		String Sql = "select * from testing_table";
+		return sta.executeQuery(Sql);
+
+	}
 
 	// ///////////////////////////
 	// /////////INSERTS///////////
@@ -145,48 +162,31 @@ public class DatabaseAdapter {
 				logger.info("Opened database successfully");
 				c.setAutoCommit(false);
 				stmt = c.createStatement();
-				
-				/** Change when testing is done
-				String sqlFutureMasterCoin = "INSERT INTO ASSETS (transaction_from,transaction_type,ecosystem"
-						+ ",property_type,previous_property_id,property_category,property_subcategory"
-						+ ",property_name,property_url,property_data,number_properties,price_in_satoshi"
-						+ ",tracking_status,property_id,broadcast_status,block_broadcasted_in,property_protocol)"
-						+ "VALUES ('"
-						+ asset.getTransaction_from()
-						+ "', '"
-						+ asset.getTransaction_type()
-						+ "', "
-						+ asset.getEcosystem()
-						+ ", "
-						+ asset.getProperty_type()
-						+ ", "
-						+ asset.getPrevious_property_id()
-						+ ", '"
-						+ asset.getProperty_category()
-						+ "', '"
-						+ asset.getProperty_subcategory()
-						+ "', '"
-						+ asset.getProperty_name()
-						+ "', '"
-						+ asset.getProperty_url()
-						+ "', '"
-						+ asset.getProperty_data()
-						+ "', "
-						+ asset.getNumber_properties()
-						+ ", "
-						+ asset.getPrice_in_satoshi()
-						+ ", '"
-						+ asset.getTracking_status()
-						+ "', "
-						+ asset.getProperty_id()
-						+ ", "
-						+ asset.getBroadcast_status()
-						+ "," 
-						+ asset.getBlock_broadcasted_in()
-						+ ",'"
-						+  asset.getProperty_protocol() 
-						+ "');";
-				**/
+
+				/**
+				 * Change when testing is done String sqlFutureMasterCoin =
+				 * "INSERT INTO ASSETS (transaction_from,transaction_type,ecosystem"
+				 * +
+				 * ",property_type,previous_property_id,property_category,property_subcategory"
+				 * +
+				 * ",property_name,property_url,property_data,number_properties,price_in_satoshi"
+				 * +
+				 * ",tracking_status,property_id,broadcast_status,block_broadcasted_in,property_protocol)"
+				 * + "VALUES ('" + asset.getTransaction_from() + "', '" +
+				 * asset.getTransaction_type() + "', " + asset.getEcosystem() +
+				 * ", " + asset.getProperty_type() + ", " +
+				 * asset.getPrevious_property_id() + ", '" +
+				 * asset.getProperty_category() + "', '" +
+				 * asset.getProperty_subcategory() + "', '" +
+				 * asset.getProperty_name() + "', '" + asset.getProperty_url() +
+				 * "', '" + asset.getProperty_data() + "', " +
+				 * asset.getNumber_properties() + ", " +
+				 * asset.getPrice_in_satoshi() + ", '" +
+				 * asset.getTracking_status() + "', " + asset.getProperty_id() +
+				 * ", " + asset.getBroadcast_status() + "," +
+				 * asset.getBlock_broadcasted_in() + ",'" +
+				 * asset.getProperty_protocol() + "');";
+				 **/
 				String sql = "INSERT INTO ASSETS (transaction_from,transaction_type,ecosystem"
 						+ ",property_type,previous_property_id,property_category,property_subcategory"
 						+ ",property_name,property_url,property_data,number_properties,price_in_satoshi"
@@ -221,10 +221,9 @@ public class DatabaseAdapter {
 						+ asset.getProperty_id()
 						+ ", "
 						+ asset.getBroadcast_status()
-						+ "," 
-						+ asset.getBlock_broadcasted_in()
-						+ ");";
-				
+						+ ","
+						+ asset.getBlock_broadcasted_in() + ");";
+
 				stmt.executeUpdate(sql);
 
 				logger.exit("Asset: " + asset.getProperty_name()
@@ -288,7 +287,7 @@ public class DatabaseAdapter {
 			return null;
 		}
 	}
-	
+
 	// Done
 	/**
 	 * @param txHash
@@ -683,11 +682,12 @@ public class DatabaseAdapter {
 				property_name);
 		logger.exit("Asset: " + property_name + " is LIVE");
 	}
-	
-	public static void setBlockBroadcastedIn(String property_name,int block_broadcasted_in) {
+
+	public static void setBlockBroadcastedIn(String property_name,
+			int block_broadcasted_in) {
 		logger.entry(property_name);
-		updateSetWhere("ASSETS", "block_broadcasted_in", block_broadcasted_in, "property_name",
-				property_name);
+		updateSetWhere("ASSETS", "block_broadcasted_in", block_broadcasted_in,
+				"property_name", property_name);
 		logger.exit("Asset: " + property_name + " is LIVE");
 	}
 
@@ -858,12 +858,12 @@ public class DatabaseAdapter {
 				int property_id = rs.getInt("property_id");
 				int block_broadcasted_in = rs.getInt("block_broadcasted_in");
 				String property_protocol = "MSC"; // rs.getString("property_protocol");
-				
+
 				answer = new Asset(transaction_from, transaction_type,
 						ecosystem, property_type, previous_property_id,
 						property_category, property_subcategory, property_name,
 						property_url, property_data, number_properties,
-						price_in_satoshi, tracking_status,property_protocol);
+						price_in_satoshi, tracking_status, property_protocol);
 
 				answer.setBroadcast_status(broadcast_status);
 				answer.setProperty_id(property_id);
@@ -944,9 +944,10 @@ public class DatabaseAdapter {
 							+ " hash        CHAR(50)    NOT NULL)";
 					stmt.executeUpdate(sql);
 
-					//sql = "INSERT INTO BLOCKS (height,status,time,hash) "
-					//		+ "VALUES (300000, 'processed', 1399703554, '000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254');";
-					//stmt.executeUpdate(sql);
+					// sql = "INSERT INTO BLOCKS (height,status,time,hash) "
+					// +
+					// "VALUES (300000, 'processed', 1399703554, '000000000000000082ccf8f1557c5d40b21edabb18d2d691cfbf87118bac7254');";
+					// stmt.executeUpdate(sql);
 
 				} else if (neededTablesVector.get(i).equals("TRANSACTIONS")) {
 					String sql = "CREATE TABLE TRANSACTIONS "
